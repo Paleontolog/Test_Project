@@ -1,14 +1,18 @@
 package my_tests;
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.WebDriver.Timeouts;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 
+import javax.inject.Inject;
 import java.awt.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,72 +20,76 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Test1 {
+    public static WebDriver driver;
 
-    public WebDriver driver;
-
-    @BeforeClass
+    @BeforeTest
     public void preparation() {
         //Указываем путь к драйверу
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("start-maximized");
-        //options.addArguments("start-fullscreen");
+        options.addArguments("start-maximized");
+        options.addArguments("start-fullscreen");
+        options.addArguments("disable-infobars"); // disabling infobars
+        options.addArguments("disable-extensions"); // disabling extensions
+        options.addArguments("disable-gpu"); // applicable to windows os only
+        options.addArguments("disable-dev-shm-usage"); // overcome limited resource problems
+        options.addArguments("no-sandbox"); // Bypass OS security model
+        options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
+
+        // testContext.setAttribute("ScreenCreator", screen);
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+
+        driver.get("https://beru.ru");
+
+        WebElement el = driver.findElement(By.cssSelector("[class*='_1ZYDKa22GJ']"));
+
+        el.click();
     }
 
-
-    @AfterClass
+    @AfterTest
     public void clear() {
-        driver.get("https://beru.ru/logout?retpath=https%3A%2F%2Fberu.ru%2F%3Fncrnd%3D4720%26loggedin%3D1");
         driver.quit();
     }
-
-
+    
     @Test
-    public void test1() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://beru.ru");
-        ScreenCreator screen = new ScreenCreator(driver);
-        screen.pageScreen(driver.findElement(By.className("_1ZYDKa22GJ")),
-                "C:\\Users\\Heretic\\IdeaProjects\\huita");
+    public void test_1(ITestContext testContext) {
 
-        // driver.findElement(By.cssSelector("*")).sendKeys(Keys.ESCAPE);
-        driver.switchTo().activeElement().sendKeys(Keys.ESCAPE);
+        WebElement el = driver.findElement(By.cssSelector(".header2-nav__user"));
 
-        screen.pageScreen(driver.findElement(By.className("header2-nav__user")),
-                "C:\\Users\\Heretic\\IdeaProjects\\huita1");
-        driver.findElement(By.className("header2-nav__user")).click();
+        el.click();
+
         WebElement logInFotm = (new WebDriverWait(driver, 20)
-                .until(ExpectedConditions.presenceOfElementLocated(By.className("passp-login-form"))));
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-login-form"))));
 
-        screen.pageScreen(logInFotm.findElement(By.name("login")),
-                "C:\\Users\\Heretic\\IdeaProjects\\huita2");
+        el = logInFotm.findElement(By.name("login"));
+
+
 
         logInFotm.findElement(By.name("login")).click();
         logInFotm.findElement(By.name("login")).sendKeys("Naglui.eretick@yandex.ru");
         logInFotm.findElement(By.name("login")).sendKeys(Keys.ENTER);
 
         WebElement PassForm = (new WebDriverWait(driver, 20)
-                .until(ExpectedConditions.presenceOfElementLocated(By.className("passp-password-form"))));
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-password-form"))));
 
-        screen.pageScreen(PassForm.findElement(By.name("passwd")),
-                "C:\\Users\\Heretic\\IdeaProjects\\huita3");
+        el = PassForm.findElement(By.name("passwd"));
 
-        PassForm.findElement(By.name("passwd")).sendKeys("28301230aaMP" + "\n");
-        WebElement all = driver.findElement(By.cssSelector("[class*='header2-nav__user']"));
-        List<WebElement> a = all.findElements(By.cssSelector("*"));
-        for (WebElement elem : a) {
-            try {
-                System.out.println(elem.getAttribute("textContent"));
-            }
-            catch (Exception e) {
-                System.out.print("Error");
-            }
-        }
 
-         System.out.println(driver.findElement(By.cssSelector("[class*='user-menu__email']"))
-             .getAttribute("textContent"));
+        el.sendKeys("28301230aaMP" + "\n");
 
+
+        WebElement note = driver.findElement(By.cssSelector("[class*='header2-nav__user']"));
+
+        el = note.findElement(By.cssSelector("[class*='__text']"));
+
+        Assert.assertEquals(el.getAttribute("textContent"), "Мой профиль");
+
+
+        (new Actions(driver)).moveToElement(note).build().perform();
+
+        el = driver.findElement(By.cssSelector("[class*='user-menu__email']"));
+
+        Assert.assertEquals(el.getAttribute("textContent"), "Naglui.eretick@yandex.ru");
     }
-
 }
