@@ -36,6 +36,7 @@ public class Test2 extends TestsPreparation {
 
         city.click();
 
+
         city.sendKeys(cityName);
 
         (new WebDriverWait(driver, 10))
