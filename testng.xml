@@ -2,7 +2,18 @@
 <suite name="TestSuite">
     <test name="Login">
         <classes>
-            <class name="my_tests.Test1" />
+           <class name="my_tests.Test1" />
+        </classes>
+    </test>
+    <test name="ChangeCityTest">
+        <parameter name="cityName" value="Хвалынск"/>
+           <classes>
+              <class name="my_tests.Test2" />
+           </classes>
+    </test>
+    <test name="Choose">
+        <classes>
+            <class name="my_tests.Test3" />
         </classes>
     </test>
 </suite>

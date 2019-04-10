@@ -1,11 +1,7 @@
 package my_tests;
 
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Coordinates;
-import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.remote.Augmenter;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -13,15 +9,14 @@ import ru.yandex.qatools.ashot.cropper.indent.BlurFilter;
 import ru.yandex.qatools.ashot.cropper.indent.IndentCropper;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 
 public class ScreenCreator {
     private WebDriver driver = null;
     private String path;
+
     ScreenCreator (WebDriver driver, String path) {
         this.driver = driver;
         this.path = path;
@@ -51,9 +46,9 @@ public class ScreenCreator {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             String code = "window.scroll(" + (element.getLocation().x) + ","
-                    + (element.getLocation().y - 10) + ");";
+                    + (element.getLocation().y - 100) + ");";
 
-            js.executeScript(code, element, 0, -10);
+            js.executeScript(code, element, 0, -100);
 
             js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid red;');", element);
 

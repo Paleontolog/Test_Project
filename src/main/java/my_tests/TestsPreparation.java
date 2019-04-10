@@ -18,21 +18,24 @@ public class TestsPreparation {
     public static ScreenCreator screen;
 
 
-    public WebElement findWithScreen(WebDriver d, By by) {
+    public WebElement findAndAllureSc(WebDriver d, By by) {
         WebElement temp = d.findElement(by);
+        Date dat = new Date();
         DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
-        screen.saveAllureScreenshot(temp, formatForDateNow.format(new Date()));
+        screen.saveAllureScreenshot(temp, formatForDateNow.format(dat));
         return temp;
     }
 
-    public WebElement findWithScreen(WebElement d, By by) {
+    public WebElement findAndAllureSc(WebElement d, By by) {
         WebElement temp = d.findElement(by);
+        Date dat = new Date();
         DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
-        screen.saveAllureScreenshot(temp, formatForDateNow.format(new Date()));
+        screen.saveAllureScreenshot(temp, formatForDateNow.format(dat));
         return temp;
     }
 
-    @BeforeClass
+    //@BeforeClass
+    @BeforeTest
     public void preparation() {
         //Указываем путь к драйверу
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
@@ -46,17 +49,17 @@ public class TestsPreparation {
         options.addArguments("no-sandbox"); // Bypass OS security model
         options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
-        screen = new ScreenCreator(driver, "C:\\Users\\Heretic\\IdeaProjects\\sample");
-        // testContext.setAttribute("ScreenCreator", screen);
+        screen = new ScreenCreator(driver, "C:\\Users\\Настя\\IdeaProjects\\my_tests\\screenshots");
+
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
         driver.get("https://beru.ru");
 
-        WebElement el = findWithScreen(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
+        WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
         el.click();
     }
 
-    @AfterClass
+    @AfterTest
     public void clear() {
         driver.quit();
     }
