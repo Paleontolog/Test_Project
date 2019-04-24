@@ -49,14 +49,14 @@ public class TestsPreparation {
         options.addArguments("no-sandbox"); // Bypass OS security model
         options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
-        screen = new ScreenCreator(driver, "C:\\Users\\Настя\\IdeaProjects\\my_tests\\screenshots");
+        screen = new ScreenCreator(driver, "C:\\Users\\Heretic\\IdeaProjects\\Test_project\\screenshots");
 
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
         driver.get("https://beru.ru");
 
-        WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
-        el.click();
+//        WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
+//        el.click();
     }
 
     @AfterTest
