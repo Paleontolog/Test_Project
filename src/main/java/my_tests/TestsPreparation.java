@@ -50,17 +50,16 @@ public class TestsPreparation {
         options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
         screen = new ScreenCreator(driver, "C:\\Users\\Heretic\\IdeaProjects\\Test_project\\screenshots");
-
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-
         driver.get("https://beru.ru");
-
+        //Закрытие рекламы (реклама исчезла с сайта, закрывать нечего)
 //        WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
 //        el.click();
     }
 
     @AfterTest
     public void clear() {
+        driver.get("https://beru.ru/logout?retpath=https%3A%2F%2Fberu.ru%2F%3Fncrnd%3D5032%26loggedin%3D1");
         driver.quit();
     }
 }

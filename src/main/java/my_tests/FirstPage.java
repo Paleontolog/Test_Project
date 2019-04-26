@@ -10,13 +10,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-public class FirstPage extends TestsPreparation {
-    // private static WebDriver driver;
-    private String cityName;
 
-//    public FirstPage(WebDriver driver) {
-//        this.driver = driver;
-//    }
+// Скриншоты снимаются на каждом шаге при помощи функции findAndAllureSc
+public class FirstPage extends TestsPreparation {
+    private String cityName;
 
     private WebElement giveAccountInfoButton() {
         return findAndAllureSc(driver, By.cssSelector(".header2-nav__user"));
@@ -42,7 +39,7 @@ public class FirstPage extends TestsPreparation {
     }
 
     public WebElement findCurrentCity() {
-        return driver.findElement(By.cssSelector("[class*='__region'] [class*='__inner']"));
+        return findAndAllureSc(driver, By.cssSelector("[class*='__region'] [class*='__inner']"));
     }
 
     @Step("Click On Current City")
@@ -57,8 +54,8 @@ public class FirstPage extends TestsPreparation {
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .cssSelector("[class*='region-select-form']"))));
 
-        WebElement city = CityForm.findElement(By
-                .cssSelector("[class*='region-suggest'] [class*='input__control']"));
+        WebElement city = findAndAllureSc(CityForm,
+                By.cssSelector("[class*='region-suggest'] [class*='input__control']"));
 
         city.click();
         city.sendKeys(cityName);

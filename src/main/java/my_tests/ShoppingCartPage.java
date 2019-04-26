@@ -22,10 +22,6 @@ public class ShoppingCartPage extends TestsPreparation {
         return Integer.parseInt(matcher.replaceAll(""));
     }
 
-//    public ShoppingCartPage(WebDriver driver) {
-//        this.driver = driver;
-//    }
-
     @Step("Price product")
     private int regylarPrice() {
         String tempText = priceList.get(0).findElement(By.cssSelector("[data-auto*='value']"))

@@ -46,4 +46,3 @@ public class TestListener extends TestsPreparation implements ITestListener {
     public void onTestSuccess(ITestResult tr) {
     }
 }
-
