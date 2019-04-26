@@ -18,7 +18,7 @@ public class MyProfile extends TestsPreparation {
     }
 
     @Step("Check addresses")
-    public void checkAdresses() {
+    public void checkAddresses() {
         Assert.assertEquals(findCityInner().getAttribute("textContent"),
                 findDeliveryAddress().getAttribute("textContent"));
     }

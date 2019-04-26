@@ -19,9 +19,9 @@ public class Test2 extends TestsPreparation {
         loginForm.enterLogin(email);
         String password = "28301230aaMP";
         loginForm.enterPassword(password);
-        MyProfile address = page.goToMyProfile();;
+        MyProfile address = page.goToMyProfile();
         address.findCityInner();
         address.findDeliveryAddress();
-        address.checkAdresses();
+        address.checkAddresses();
     }
 }
