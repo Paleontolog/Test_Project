@@ -17,7 +17,7 @@ public class ProductListPage extends TestsPreparation {
     private List<WebElement> productList;
 
     @Step("Input minimum price")
-    public void inputMinmumPrice(int price) {
+    public void inputMinimumPrice(int price) {
         WebElement fieldPriceFrom = driver.findElement(By.id("glpricefrom"));
         fieldPriceFrom.click();
         String priceStr = Integer.toString(price);
@@ -99,7 +99,7 @@ public class ProductListPage extends TestsPreparation {
     }
 
     @Step("Go to my basket")
-    public ShoppingCartPage toMyBascet() {
+    public ShoppingCartPage toMyBasket() {
         productList.get(productList.size() - 2).findElement(By.cssSelector("[class*='_2w0qPDYwej']")).click();
 
         (new WebDriverWait(driver, 10))

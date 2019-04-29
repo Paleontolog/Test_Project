@@ -35,7 +35,7 @@ public class TestsPreparation {
     }
 
     //@BeforeClass
-    @BeforeTest
+    @BeforeMethod
     public void preparation() {
         //Указываем путь к драйверу
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
@@ -57,7 +57,7 @@ public class TestsPreparation {
 //        el.click();
     }
 
-    @AfterTest
+    @AfterMethod
     public void clear() {
         driver.get("https://beru.ru/logout?retpath=https%3A%2F%2Fberu.ru%2F%3Fncrnd%3D5032%26loggedin%3D1");
         driver.quit();

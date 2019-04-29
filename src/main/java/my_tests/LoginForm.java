@@ -13,11 +13,11 @@ public class LoginForm extends TestsPreparation {
     //"Naglui.eretick@yandex.ru"
     @Step("Enter login")
     public void enterLogin(String login) {
-        WebElement logInFotm = (new WebDriverWait(driver, 20)
+        WebElement logInForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-login-form"))));
-        WebElement element = findAndAllureSc(logInFotm, By.name("login"));
+        WebElement element = findAndAllureSc(logInForm, By.name("login"));
         element.click();
-        element.sendKeys("Naglui.eretick@yandex.ru");
+        element.sendKeys(login);
         element.sendKeys(Keys.ENTER);
     }
 
@@ -27,7 +27,7 @@ public class LoginForm extends TestsPreparation {
         WebElement PassForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-password-form"))));
         WebElement element = findAndAllureSc(PassForm, By.name("passwd"));
-        element.sendKeys("28301230aaMP");
+        element.sendKeys(password);
         element.sendKeys(Keys.ENTER);
     }
 }

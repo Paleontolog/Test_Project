@@ -1,14 +1,23 @@
 package my_tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 @Listeners(TestListener.class)
 public class Test2 extends TestsPreparation {
 
-    @Parameters("cityName")
-    @Test
+    @DataProvider(name="SearchProvider")
+    public Object[][] getDataFromDataprovider(){
+        return new Object[][]
+                {
+                        { "Хвалынск" },
+                        { "Москва" },
+                        { "Самара" }
+                };
+    }
+
+    @Test(dataProvider="SearchProvider")
     public void test_2(String cityName) {
         FirstPage page = new FirstPage();
         page.clickCityInner();

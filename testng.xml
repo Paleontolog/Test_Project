@@ -6,7 +6,6 @@
         </classes>
     </test>
     <test name="ChangeCityTest">
-        <parameter name="cityName" value="Хвалынск"/>
            <classes>
               <class name="my_tests.Test2" />
            </classes>

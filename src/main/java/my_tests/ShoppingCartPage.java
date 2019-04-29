@@ -1,9 +1,7 @@
 package my_tests;
 
 import io.qameta.allure.Step;
-import org.aspectj.weaver.ast.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,14 +21,14 @@ public class ShoppingCartPage extends TestsPreparation {
     }
 
     @Step("Price product")
-    private int regylarPrice() {
+    private int regularPrice() {
         String tempText = priceList.get(0).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return parseInt(tempText);
     }
 
     @Step("Delivery price")
-    private int delivryPrice() {
+    private int deliveryPrice() {
         String tempText = priceList.get(1).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return tempText.contains("бесплатно") ? 0 : parseInt(tempText);
@@ -61,7 +59,7 @@ public class ShoppingCartPage extends TestsPreparation {
         priceList = driver.findElements(By.cssSelector("[class *= '_1Q9ASvPbPN']"));
         int sale = salePrice();
         int index = sale == 0 ? 2 : 3;
-        Assert.assertEquals(regylarPrice() + delivryPrice() - sale,
+        Assert.assertEquals(regularPrice() + deliveryPrice() - sale,
                 summaryPrice(index));
     }
 
