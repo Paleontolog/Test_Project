@@ -17,20 +17,22 @@ public class TestsPreparation {
 
     public static ScreenCreator screen;
 
-
-    public WebElement findAndAllureSc(WebDriver d, By by) {
-        WebElement temp = d.findElement(by);
+    private void saveScreen(WebElement temp) {
         Date dat = new Date();
         DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
         screen.saveAllureScreenshot(temp, formatForDateNow.format(dat));
+    }
+
+
+    public WebElement findAndAllureSc(WebDriver d, By by) {
+        WebElement temp = d.findElement(by);
+        saveScreen(temp);
         return temp;
     }
 
     public WebElement findAndAllureSc(WebElement d, By by) {
         WebElement temp = d.findElement(by);
-        Date dat = new Date();
-        DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
-        screen.saveAllureScreenshot(temp, formatForDateNow.format(dat));
+        saveScreen(temp);
         return temp;
     }
 

@@ -36,9 +36,10 @@ public class ScreenCreator {
 
 
     byte[] pageScreen(WebElement element, String name) {
-        String code = "window.scroll(" + (element.getLocation().x) + ","
-                + (element.getLocation().y - 10) + ");";
-        ((JavascriptExecutor)driver).executeScript(code, element, 0, -10);
+        // Прокрутка страницы к нужному элементу (пока не нужна)
+        //String code = "window.scroll(" + (element.getLocation().x) + ","
+        //        + (element.getLocation().y - 100) + ");";
+        //((JavascriptExecutor)driver).executeScript(code, element, 0, -100);
         File screenshot = ((TakesScreenshot)(new Augmenter().augment(driver)))
                 .getScreenshotAs(OutputType.FILE);
         BufferedImage img = null;

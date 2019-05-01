@@ -83,14 +83,14 @@ public class FirstPage extends TestsPreparation {
     @Step("Check address")
     public MyProfile goToMyProfile() {
         (new Actions(driver)).moveToElement(giveAccountInfoButton()).build().perform();
-        WebElement addresses = driver.findElement(By.cssSelector("[class*='item_type_addresses']"));
+        WebElement addresses = findAndAllureSc(driver, By.cssSelector("[class*='item_type_addresses']"));
         addresses.click();
         return new MyProfile();
     }
 
     @Step("Find item")
     public void findItem(String item) {
-        WebElement fieldForSearch = driver.findElement(By.id("header-search"));
+        WebElement fieldForSearch = findAndAllureSc(driver, By.id("header-search"));
         fieldForSearch.click();
         fieldForSearch.sendKeys(item);
         fieldForSearch.sendKeys(Keys.ENTER);
