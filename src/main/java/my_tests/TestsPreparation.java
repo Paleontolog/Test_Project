@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
+
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,26 +19,26 @@ public class TestsPreparation {
 
     public static ScreenCreator screen;
 
-    private void saveScreen(WebElement temp) {
+    public static String SCREEN_PATH = new File("screenshots").getAbsolutePath();
+
+    public String saveScreen() {
         Date dat = new Date();
         DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
-        screen.saveAllureScreenshot(temp, formatForDateNow.format(dat));
+        screen.saveAllureScreenshot(formatForDateNow.format(dat));
+        System.out.println(formatForDateNow.format(dat));
+        return formatForDateNow.format(dat);
     }
-
 
     public WebElement findAndAllureSc(WebDriver d, By by) {
         WebElement temp = d.findElement(by);
-        saveScreen(temp);
         return temp;
     }
 
     public WebElement findAndAllureSc(WebElement d, By by) {
         WebElement temp = d.findElement(by);
-        saveScreen(temp);
         return temp;
     }
 
-    //@BeforeClass
     @BeforeMethod
     public void preparation() {
         //Указываем путь к драйверу
@@ -51,12 +53,12 @@ public class TestsPreparation {
         options.addArguments("no-sandbox"); // Bypass OS security model
         options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
-        screen = new ScreenCreator(driver, "C:\\Users\\Heretic\\IdeaProjects\\Test_project\\screenshots");
+        screen = new ScreenCreator(driver, SCREEN_PATH);
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
         driver.get("https://beru.ru");
         //Закрытие рекламы (реклама исчезла с сайта, закрывать нечего)
-//        WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
-//        el.click();
+        //WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
+        //el.click();
     }
 
     @AfterMethod

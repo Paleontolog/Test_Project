@@ -29,17 +29,12 @@ public class ScreenCreator {
                 .getScreenshotAs(OutputType.BYTES);
     }
 
-    @Attachment(value = "{1}", type = "image/png")
-    public byte[] saveAllureScreenshot(WebElement element, String name) {
-        return pageScreen(element, name);
+    public byte[] saveAllureScreenshot(String name) {
+        return pageScreen(name);
     }
 
 
-    byte[] pageScreen(WebElement element, String name) {
-        // Прокрутка страницы к нужному элементу (пока не нужна)
-        //String code = "window.scroll(" + (element.getLocation().x) + ","
-        //        + (element.getLocation().y - 100) + ");";
-        //((JavascriptExecutor)driver).executeScript(code, element, 0, -100);
+    byte[] pageScreen(String name) {
         File screenshot = ((TakesScreenshot)(new Augmenter().augment(driver)))
                 .getScreenshotAs(OutputType.FILE);
         BufferedImage img = null;
@@ -69,7 +64,7 @@ public class ScreenCreator {
         byte[] bytes = null;
         File to = new File(path + "\\" +  name + ".png");
         try {
-           JavascriptExecutor js = (JavascriptExecutor) driver;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
             String code = "window.scroll(" + (element.getLocation().x) + ","
                     + (element.getLocation().y - 100) + ");";
             js.executeScript(code, element, 0, -100);
