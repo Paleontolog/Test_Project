@@ -18,7 +18,7 @@ public class ProductListPage extends TestsPreparation {
 
     @Step("Input minimum price")
     public void inputMinimumPrice(int price) {
-        WebElement fieldPriceFrom = findAndAllureSc(driver, By.id("glpricefrom"));
+        WebElement fieldPriceFrom = driver.findElement(By.id("glpricefrom"));
         fieldPriceFrom.click();
         String priceStr = Integer.toString(price);
         fieldPriceFrom.sendKeys(priceStr);
@@ -28,7 +28,7 @@ public class ProductListPage extends TestsPreparation {
 
     @Step("Input maximum price")
     public void inputMaximumPrice(int price) {
-        WebElement fieldPriceTo = findAndAllureSc(driver, By.id("glpriceto"));
+        WebElement fieldPriceTo = driver.findElement(By.id("glpriceto"));
         fieldPriceTo.click();
         String priceStr = Integer.toString(price);
         fieldPriceTo.sendKeys(priceStr);
@@ -40,7 +40,7 @@ public class ProductListPage extends TestsPreparation {
     public void showAllProduct() {
         while(true) {
             try {
-                WebElement showNewElement = findAndAllureSc(driver, By.cssSelector(".n-pager-more__button"));
+                WebElement showNewElement = driver.findElement(By.cssSelector(".n-pager-more__button"));
                 showNewElement.click();
             } catch (Exception e) {
                 break;
@@ -51,7 +51,7 @@ public class ProductListPage extends TestsPreparation {
     @Step("Get all products")
     public void getListAllProducts() {
         final int countElement = Integer.parseInt(
-                findAndAllureSc(driver, By.cssSelector(".n-search-preciser__results-count"))
+                    driver.findElement(By.cssSelector(".n-search-preciser__results-count"))
                         .getAttribute("textContent").split(" ")[1]);
 
         (new WebDriverWait(driver,10)).until(new ExpectedCondition<Boolean>(){
@@ -93,7 +93,7 @@ public class ProductListPage extends TestsPreparation {
 
     @Step("Add product in basket")
     public void addToBasket() {
-        findAndAllureSc(productList.get(productList.size() - 2), By.cssSelector("[class*='_2w0qPDYwej']")).click();
+        productList.get(productList.size() - 2).findElement(By.cssSelector("[class*='_2w0qPDYwej']")).click();
         (new WebDriverWait(driver, 20))
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .cssSelector("[class*='_1sjxYfIabK _26mXJDBxtH']")));
@@ -101,7 +101,7 @@ public class ProductListPage extends TestsPreparation {
 
     @Step("Go to my basket")
     public ShoppingCartPage toMyBasket() {
-        findAndAllureSc(productList.get(productList.size() - 2), By.cssSelector("[class*='_2w0qPDYwej']")).click();
+        productList.get(productList.size() - 2).findElement(By.cssSelector("[class*='_2w0qPDYwej']")).click();
 
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[class*='_3AlSA6AOKL']")));

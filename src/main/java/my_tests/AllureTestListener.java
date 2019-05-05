@@ -5,20 +5,21 @@ import io.qameta.allure.model.StepResult;
 
 @SuppressWarnings("JavadocType")
 public class AllureTestListener extends TestsPreparation implements StepLifecycleListener {
-    @Override
-    public void beforeStepStart(final StepResult result) {
+
+    private void addAttachment(final StepResult result) {
         Attachment att = new Attachment();
         att.setType("image/png");
         att.setSource(SCREEN_PATH + "\\" + saveScreen() + ".png");
         result.withAttachments(att);
+    }
+
+    @Override
+    public void beforeStepStart(final StepResult result) {
+       addAttachment(result);
     }
 
     @Override
     public void beforeStepStop(final StepResult result) {
-        Attachment att = new Attachment();
-        att.setType("image/png");
-        att.setSource(SCREEN_PATH + "\\" + saveScreen() + ".png");
-        result.withAttachments(att);
+        addAttachment(result);
     }
 }
-

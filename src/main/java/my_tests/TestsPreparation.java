@@ -24,19 +24,8 @@ public class TestsPreparation {
     public String saveScreen() {
         Date dat = new Date();
         DateFormat formatForDateNow = new SimpleDateFormat("yyyy-mm-dd hh.mm.ss");
-        screen.saveAllureScreenshot(formatForDateNow.format(dat));
-        System.out.println(formatForDateNow.format(dat));
+        screen.pageScreen(formatForDateNow.format(dat));
         return formatForDateNow.format(dat);
-    }
-
-    public WebElement findAndAllureSc(WebDriver d, By by) {
-        WebElement temp = d.findElement(by);
-        return temp;
-    }
-
-    public WebElement findAndAllureSc(WebElement d, By by) {
-        WebElement temp = d.findElement(by);
-        return temp;
     }
 
     @BeforeMethod

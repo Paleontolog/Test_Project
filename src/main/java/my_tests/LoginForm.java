@@ -15,7 +15,7 @@ public class LoginForm extends TestsPreparation {
     public void enterLogin(String login) {
         WebElement logInForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-login-form"))));
-        WebElement element = findAndAllureSc(logInForm, By.name("login"));
+        WebElement element = logInForm.findElement(By.name("login"));
         element.click();
         element.sendKeys(login);
         element.sendKeys(Keys.ENTER);
@@ -26,7 +26,7 @@ public class LoginForm extends TestsPreparation {
     public void enterPassword(String password) {
         WebElement PassForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-password-form"))));
-        WebElement element = findAndAllureSc(PassForm, By.name("passwd"));
+        WebElement element = PassForm.findElement(By.name("passwd"));
         element.sendKeys(password);
         element.sendKeys(Keys.ENTER);
     }

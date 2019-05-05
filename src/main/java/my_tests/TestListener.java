@@ -32,7 +32,6 @@ public class TestListener extends TestsPreparation implements ITestListener {
 
     }
 
-
     @Override
     public void onFinish(ITestContext tr) {
 

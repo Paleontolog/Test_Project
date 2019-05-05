@@ -16,7 +16,7 @@ public class FirstPage extends TestsPreparation {
     private String cityName;
 
     private WebElement giveAccountInfoButton() {
-        return findAndAllureSc(driver, By.cssSelector(".header2-nav__user"));
+        return driver.findElement(By.cssSelector(".header2-nav__user"));
     }
 
     @Step("Click on Account")
@@ -28,7 +28,7 @@ public class FirstPage extends TestsPreparation {
     @Step("Check User Email")
     public void checkUserEmail() {
         (new Actions(driver)).moveToElement(giveAccountInfoButton()).build().perform();
-        WebElement userMenuEmail = findAndAllureSc(driver, By.cssSelector("[class*='user-menu__email']"));
+        WebElement userMenuEmail = driver.findElement(By.cssSelector("[class*='user-menu__email']"));
         Assert.assertEquals(userMenuEmail.getAttribute("textContent"), "Naglui.eretick@yandex.ru");
     }
 
@@ -39,7 +39,7 @@ public class FirstPage extends TestsPreparation {
     }
 
     public WebElement findCurrentCity() {
-        return findAndAllureSc(driver, By.cssSelector("[class*='__region'] [class*='__inner']"));
+        return driver.findElement(By.cssSelector("[class*='__region'] [class*='__inner']"));
     }
 
     @Step("Click On Current City")
@@ -54,8 +54,7 @@ public class FirstPage extends TestsPreparation {
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .cssSelector("[class*='region-select-form']"))));
 
-        WebElement city = findAndAllureSc(CityForm,
-                By.cssSelector("[class*='region-suggest'] [class*='input__control']"));
+        WebElement city = CityForm.findElement(By.cssSelector("[class*='region-suggest'] [class*='input__control']"));
 
         city.click();
         city.sendKeys(cityName);
@@ -83,14 +82,14 @@ public class FirstPage extends TestsPreparation {
     @Step("Check address")
     public MyProfile goToMyProfile() {
         (new Actions(driver)).moveToElement(giveAccountInfoButton()).build().perform();
-        WebElement addresses = findAndAllureSc(driver, By.cssSelector("[class*='item_type_addresses']"));
+        WebElement addresses = driver.findElement(By.cssSelector("[class*='item_type_addresses']"));
         addresses.click();
         return new MyProfile();
     }
 
     @Step("Find item")
     public void findItem(String item) {
-        WebElement fieldForSearch = findAndAllureSc(driver, By.id("header-search"));
+        WebElement fieldForSearch = driver.findElement(By.id("header-search"));
         fieldForSearch.click();
         fieldForSearch.sendKeys(item);
         fieldForSearch.sendKeys(Keys.ENTER);

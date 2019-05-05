@@ -22,14 +22,14 @@ public class ShoppingCartPage extends TestsPreparation {
 
     @Step("Price product")
     private int regularPrice() {
-        String tempText = findAndAllureSc(priceList.get(0), By.cssSelector("[data-auto*='value']"))
+        String tempText = priceList.get(0).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return parseInt(tempText);
     }
 
     @Step("Delivery price")
     private int deliveryPrice() {
-        String tempText = findAndAllureSc(priceList.get(1), By.cssSelector("[data-auto*='value']"))
+        String tempText = priceList.get(1).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return tempText.contains("бесплатно") ? 0 : parseInt(tempText);
     }
@@ -38,7 +38,7 @@ public class ShoppingCartPage extends TestsPreparation {
     private int salePrice() {
         int salary = 0;
         if (priceList.size() == 4) {
-            String tempText = findAndAllureSc(priceList.get(2),
+            String tempText = priceList.get(2).findElement(
                     By.xpath("//span[text()[contains(., 'Скидка')]]/following-sibling::span"))
                     .getAttribute("textContent");
             salary = parseInt(tempText);
@@ -48,7 +48,7 @@ public class ShoppingCartPage extends TestsPreparation {
 
     @Step("All price")
     private int summaryPrice(int index) {
-        String tempText = findAndAllureSc(priceList.get(index),
+        String tempText = priceList.get(index).findElement(
                  By.cssSelector("[class*='_1oBlNqVHPq']"))
                 .getAttribute("textContent");
         return parseInt(tempText);
@@ -65,18 +65,17 @@ public class ShoppingCartPage extends TestsPreparation {
 
     @Step("Check free delivery")
     public void checkDeliveryIsFree() {
-        String priceStr = findAndAllureSc(priceList.get(1), By.cssSelector("[data-auto*='value']"))
+        String priceStr = priceList.get(1).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent").replace(" ", "");
         Assert.assertTrue(priceStr.contains("бесплатно"));
     }
 
     @Step("Add product")
     public void addCountProduct(int priceLimit) {
-        String priceStr = findAndAllureSc(driver, By.xpath("//div[@data-auto='CartOfferPrice']/span/span/span"))
+        String priceStr = driver.findElement(By.xpath("//div[@data-auto='CartOfferPrice']/span/span/span"))
                 .getAttribute("textContent");
         int regylarPrice = parseInt(priceStr);
         while(regylarPrice < priceLimit) {
-            System.out.println(regylarPrice);
             driver.findElement(By.xpath("//button//span[text()='+']")).click();
             priceStr = driver.findElement(By.xpath("//div[@data-auto='CartOfferPrice']/span/span/span"))
                     .getAttribute("textContent");
@@ -94,7 +93,7 @@ public class ShoppingCartPage extends TestsPreparation {
 
     @Step("Check delivery text")
     public void checkDeliveryText(String textDelivery) {
-        WebElement freeCome = findAndAllureSc(driver, By.cssSelector("[class *= '_3EX9adn_xp']"));
+        WebElement freeCome = driver.findElement(By.cssSelector("[class *= '_3EX9adn_xp']"));
         Assert.assertTrue(freeCome.getAttribute("textContent").contains(textDelivery));
     }
 }

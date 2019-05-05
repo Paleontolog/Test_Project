@@ -29,11 +29,6 @@ public class ScreenCreator {
                 .getScreenshotAs(OutputType.BYTES);
     }
 
-    public byte[] saveAllureScreenshot(String name) {
-        return pageScreen(name);
-    }
-
-
     byte[] pageScreen(String name) {
         File screenshot = ((TakesScreenshot)(new Augmenter().augment(driver)))
                 .getScreenshotAs(OutputType.FILE);
@@ -54,31 +49,6 @@ public class ScreenCreator {
             baos.close();
         } catch (Exception exc) {
             exc.printStackTrace();
-        }
-        return bytes;
-    }
-
-
-    byte[] pageScreenAshot(WebElement element, String name) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] bytes = null;
-        File to = new File(path + "\\" +  name + ".png");
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            String code = "window.scroll(" + (element.getLocation().x) + ","
-                    + (element.getLocation().y - 100) + ");";
-            js.executeScript(code, element, 0, -100);
-            js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid red;');", element);
-            Screenshot sc = new AShot().imageCropper(new IndentCropper(1000).addIndentFilter(new BlurFilter()))
-                    .takeScreenshot(driver, element);
-            BufferedImage img = sc.getImage();
-            ImageIO.write(img, "png", to);
-            ImageIO.write(img, "png", baos);
-            baos.flush();
-            bytes = baos.toByteArray();
-            baos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return bytes;
     }

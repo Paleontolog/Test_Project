@@ -9,12 +9,12 @@ public class MyProfile extends TestsPreparation {
 
     @Step("Find city inner")
     public WebElement findCityInner() {
-        return findAndAllureSc(driver, By.cssSelector("[class*='settings-list_type_region'] [class*='__inner']"));
+        return driver.findElement(By.cssSelector("[class*='settings-list_type_region'] [class*='__inner']"));
     }
 
     @Step("Find delivery address")
     public WebElement findDeliveryAddress() {
-        return findAndAllureSc(driver, By.cssSelector("[class*='__region'] [class*='__inner']"));
+        return driver.findElement(By.cssSelector("[class*='__region'] [class*='__inner']"));
     }
 
     @Step("Check addresses")
