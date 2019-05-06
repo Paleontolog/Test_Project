@@ -82,7 +82,6 @@ public class ShoppingCartPage extends TestsPreparation {
         }
     }
 
-    @Step("Проверяем, что появилось сообщение о бесплатной доставке")
     public void checkDeliveryIsFreeTitle(String title) {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.attributeContains(
@@ -90,7 +89,8 @@ public class ShoppingCartPage extends TestsPreparation {
         checkDeliveryText(title);
     }
 
-    private void checkDeliveryText(String textDelivery) {
+    @Step("Проверяем, что появилось сообщение о бесплатной доставке")
+    public void checkDeliveryText(String textDelivery) {
         WebElement freeCome = driver.findElement(By.cssSelector("[class *= '_3EX9adn_xp']"));
         Assert.assertTrue(freeCome.getAttribute("textContent").contains(textDelivery));
     }

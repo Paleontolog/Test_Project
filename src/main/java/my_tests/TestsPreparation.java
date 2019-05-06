@@ -49,9 +49,11 @@ public class TestsPreparation {
 
     @AfterMethod
     public void clear() {
-        (new Actions(driver)).moveToElement(driver
-                .findElement(By.cssSelector(".header2-nav__user"))).build().perform();
-        driver.findElement(By.cssSelector("[class*='type_logout']"));
+        if (driver.findElement(By.cssSelector(".header2-nav__user"))
+                .getAttribute("textContent").contains("Мой профиль")) {
+            driver.findElement(By.cssSelector(".header2-nav__user")).click();
+            driver.findElement(By.cssSelector("[class*='type_logout']")).click();
+        }
         driver.quit();
     }
 }
