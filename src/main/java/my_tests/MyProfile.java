@@ -7,17 +7,17 @@ import org.testng.Assert;
 
 public class MyProfile extends TestsPreparation {
 
-    @Step("Find city inner")
+    @Step("Находим текущий город")
     public WebElement findCityInner() {
         return driver.findElement(By.cssSelector("[class*='settings-list_type_region'] [class*='__inner']"));
     }
 
-    @Step("Find delivery address")
+    @Step("Находим адрес доставки")
     public WebElement findDeliveryAddress() {
         return driver.findElement(By.cssSelector("[class*='__region'] [class*='__inner']"));
     }
 
-    @Step("Check addresses")
+    @Step("Проверка того, что адрес доставки тот же, что и текущий город")
     public void checkAddresses() {
         Assert.assertEquals(findCityInner().getAttribute("textContent"),
                 findDeliveryAddress().getAttribute("textContent"));

@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductListPage extends TestsPreparation {
     private List<WebElement> productList;
 
-    @Step("Input minimum price")
+    @Step("Ввод минимальной цены")
     public void inputMinimumPrice(int price) {
         WebElement fieldPriceFrom = driver.findElement(By.id("glpricefrom"));
         fieldPriceFrom.click();
@@ -26,7 +26,7 @@ public class ProductListPage extends TestsPreparation {
         (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOf(wind));
     }
 
-    @Step("Input maximum price")
+    @Step("Ввод максимальной цены")
     public void inputMaximumPrice(int price) {
         WebElement fieldPriceTo = driver.findElement(By.id("glpriceto"));
         fieldPriceTo.click();
@@ -36,7 +36,7 @@ public class ProductListPage extends TestsPreparation {
         (new WebDriverWait(driver, 40)).until(ExpectedConditions.visibilityOf(wind));
     }
 
-    @Step("Show all product")
+    @Step("Показать список всех товаров")
     public void showAllProduct() {
         while(true) {
             try {
@@ -48,29 +48,27 @@ public class ProductListPage extends TestsPreparation {
         }
     }
 
-    @Step("Get all products")
+    @Step("Получить список всех товаров")
     public void getListAllProducts() {
         final int countElement = Integer.parseInt(
                     driver.findElement(By.cssSelector(".n-search-preciser__results-count"))
                         .getAttribute("textContent").split(" ")[1]);
-
         (new WebDriverWait(driver,10)).until(new ExpectedCondition<Boolean>(){
             public Boolean apply(WebDriver driver) {
                 return driver.findElements(By
                         .cssSelector("[class*='grid-snippet_react']")).size() == countElement;
             }
         });
-
         productList = driver.findElements(By.cssSelector("[class*='grid-snippet_react']"));
     }
 
-    @Step("Check list not empty")
+    @Step("Проверка, что список товаров не пуст")
     public void checkListNotEmpty() {
         Assert.assertNotNull(productList);
         Assert.assertTrue(productList.size() != 0);
     }
 
-    @Step("Check price in range")
+    @Step("Проверка того, что цены находятся в нужном диапазоне")
     public void checkPriceInRange(int minPrice, int maxPrice) {
         boolean flag = true;
         JSONParser parser = new JSONParser();
@@ -91,7 +89,7 @@ public class ProductListPage extends TestsPreparation {
         Assert.assertTrue(flag);
     }
 
-    @Step("Add product in basket")
+    @Step("Добавить товар в корзину")
     public void addToBasket() {
         productList.get(productList.size() - 2).findElement(By.cssSelector("[class*='_2w0qPDYwej']")).click();
         (new WebDriverWait(driver, 20))
@@ -99,10 +97,9 @@ public class ProductListPage extends TestsPreparation {
                         .cssSelector("[class*='_1sjxYfIabK _26mXJDBxtH']")));
     }
 
-    @Step("Go to my basket")
+    @Step("Перейти в корзину")
     public ShoppingCartPage toMyBasket() {
         productList.get(productList.size() - 2).findElement(By.cssSelector("[class*='_2w0qPDYwej']")).click();
-
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[class*='_3AlSA6AOKL']")));
         return new ShoppingCartPage();

@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-
-// Скриншоты снимаются на каждом шаге при помощи функции findAndAllureSc
 public class FirstPage extends TestsPreparation {
     private String cityName;
 
@@ -19,67 +17,60 @@ public class FirstPage extends TestsPreparation {
         return driver.findElement(By.cssSelector(".header2-nav__user"));
     }
 
-    @Step("Click on Account")
+    @Step("Нажатие на кнопку \"Войти в аккаунт\"")
     public LoginForm clickButtonAccount() {
         giveAccountInfoButton().click();
         return new LoginForm();
     }
 
-    @Step("Check User Email")
+    @Step("Проверка e-mail пользователя")
     public void checkUserEmail() {
         (new Actions(driver)).moveToElement(giveAccountInfoButton()).build().perform();
         WebElement userMenuEmail = driver.findElement(By.cssSelector("[class*='user-menu__email']"));
         Assert.assertEquals(userMenuEmail.getAttribute("textContent"), "Naglui.eretick@yandex.ru");
     }
 
-    @Step("Check Text in Button Account")
+    @Step("Проверка того, что текст сменился на \"Мой профиль\"")
     public void checkTextOnAccountInfoButton() {
         WebElement textButtonUser = giveAccountInfoButton().findElement(By.cssSelector("[class*='__text']"));
         Assert.assertEquals(textButtonUser.getAttribute("textContent"), "Мой профиль");
     }
 
-    public WebElement findCurrentCity() {
+    private WebElement findCurrentCity() {
         return driver.findElement(By.cssSelector("[class*='__region'] [class*='__inner']"));
     }
 
-    @Step("Click On Current City")
+    @Step("Клик на текущий город")
     public void clickCityInner() {
         findCurrentCity().click();
     }
 
-    @Step("Set new city")
+    @Step("Ввод нового города")
     public void changeCityName(String cityName) {
         this.cityName = cityName;
         WebElement CityForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By
                         .cssSelector("[class*='region-select-form']"))));
-
         WebElement city = CityForm.findElement(By.cssSelector("[class*='region-suggest'] [class*='input__control']"));
-
         city.click();
         city.sendKeys(cityName);
-
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(city.
                         findElement(By.xpath("//strong[text()[contains(.,\'" + cityName + "\')]]"))));
-
         city.sendKeys(Keys.ENTER);
-
         (new WebDriverWait(driver, 20))
                 .until(ExpectedConditions.invisibilityOf(
                         driver.findElement(By.cssSelector("[class*='suggestick-list']"))));
-
         city.sendKeys(Keys.ENTER);
-
         driver.navigate().refresh();
     }
 
-    @Step("Check city name")
+    @Step("Проверка того, что назание города сменилоь на новое")
     public void checkCityName() {
         Assert.assertEquals(findCurrentCity().getAttribute("textContent"), cityName);
     }
 
-    @Step("Check address")
+    @Step("Переход в личный кабинет")
     public MyProfile goToMyProfile() {
         (new Actions(driver)).moveToElement(giveAccountInfoButton()).build().perform();
         WebElement addresses = driver.findElement(By.cssSelector("[class*='item_type_addresses']"));
@@ -87,7 +78,7 @@ public class FirstPage extends TestsPreparation {
         return new MyProfile();
     }
 
-    @Step("Find item")
+    @Step("Ввод запроса в строку поиска")
     public void findItem(String item) {
         WebElement fieldForSearch = driver.findElement(By.id("header-search"));
         fieldForSearch.click();

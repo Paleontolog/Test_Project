@@ -2,10 +2,11 @@ package my_tests;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.*;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -30,29 +31,27 @@ public class TestsPreparation {
 
     @BeforeMethod
     public void preparation() {
-        //Указываем путь к драйверу
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         options.addArguments("start-fullscreen");
-        options.addArguments("disable-infobars"); // disabling infobars
-        options.addArguments("disable-extensions"); // disabling extensions
-        options.addArguments("disable-gpu"); // applicable to windows os only
-        options.addArguments("disable-dev-shm-usage"); // overcome limited resource problems
-        options.addArguments("no-sandbox"); // Bypass OS security model
+        options.addArguments("disable-infobars");
+        options.addArguments("disable-extensions");
+        options.addArguments("disable-gpu");
+        options.addArguments("disable-dev-shm-usage");
+        options.addArguments("no-sandbox");
         options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
         screen = new ScreenCreator(driver, SCREEN_PATH);
         driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
         driver.get("https://beru.ru");
-        //Закрытие рекламы (реклама исчезла с сайта, закрывать нечего)
-        //WebElement el = findAndAllureSc(driver, By.cssSelector("[class*='_1ZYDKa22GJ']"));
-        //el.click();
     }
 
     @AfterMethod
     public void clear() {
-        driver.get("https://beru.ru/logout?retpath=https%3A%2F%2Fberu.ru%2F%3Fncrnd%3D5032%26loggedin%3D1");
+        (new Actions(driver)).moveToElement(driver
+                .findElement(By.cssSelector(".header2-nav__user"))).build().perform();
+        driver.findElement(By.cssSelector("[class*='type_logout']"));
         driver.quit();
     }
 }

@@ -24,17 +24,14 @@ public class TestListener extends TestsPreparation implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-
     }
 
     @Override
     public void onStart(ITestContext tr) {
-
     }
 
     @Override
     public void onFinish(ITestContext tr) {
-
     }
 
     @Override

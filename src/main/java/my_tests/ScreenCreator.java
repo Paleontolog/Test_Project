@@ -29,27 +29,15 @@ public class ScreenCreator {
                 .getScreenshotAs(OutputType.BYTES);
     }
 
-    byte[] pageScreen(String name) {
+    void pageScreen(String name) {
         File screenshot = ((TakesScreenshot)(new Augmenter().augment(driver)))
                 .getScreenshotAs(OutputType.FILE);
-        BufferedImage img = null;
         try {
-            img = ImageIO.read(screenshot);
+            BufferedImage img = ImageIO.read(screenshot);
+            File to = new File(path + "\\" +  name + ".png");
+            ImageIO.write(img, "png", to);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] bytes = null;
-        try {
-            File to = new File(path + "\\" +  name + ".png");
-            ImageIO.write(img, "png", to);
-            ImageIO.write(img, "png", baos);
-            baos.flush();
-            bytes = baos.toByteArray();
-            baos.close();
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        return bytes;
     }
 }

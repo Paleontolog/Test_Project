@@ -7,11 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class LoginForm extends TestsPreparation {
 
-    //"Naglui.eretick@yandex.ru"
-    @Step("Enter login")
+    @Step("Ввод логина")
     public void enterLogin(String login) {
         WebElement logInForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-login-form"))));
@@ -21,8 +19,7 @@ public class LoginForm extends TestsPreparation {
         element.sendKeys(Keys.ENTER);
     }
 
-    //"28301230aaMP"
-    @Step("Enter password")
+    @Step("Ввод пароля")
     public void enterPassword(String password) {
         WebElement PassForm = (new WebDriverWait(driver, 20)
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".passp-password-form"))));

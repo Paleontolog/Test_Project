@@ -20,21 +20,21 @@ public class ShoppingCartPage extends TestsPreparation {
         return Integer.parseInt(matcher.replaceAll(""));
     }
 
-    @Step("Price product")
+    @Step("Обычная цена")
     private int regularPrice() {
         String tempText = priceList.get(0).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return parseInt(tempText);
     }
 
-    @Step("Delivery price")
+    @Step("Цена доставки")
     private int deliveryPrice() {
         String tempText = priceList.get(1).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent");
         return tempText.contains("бесплатно") ? 0 : parseInt(tempText);
     }
 
-    @Step("Sale price")
+    @Step("Размер скидки")
     private int salePrice() {
         int salary = 0;
         if (priceList.size() == 4) {
@@ -46,7 +46,7 @@ public class ShoppingCartPage extends TestsPreparation {
         return salary;
     }
 
-    @Step("All price")
+    @Step("Итоговая цена")
     private int summaryPrice(int index) {
         String tempText = priceList.get(index).findElement(
                  By.cssSelector("[class*='_1oBlNqVHPq']"))
@@ -54,23 +54,22 @@ public class ShoppingCartPage extends TestsPreparation {
         return parseInt(tempText);
     }
 
-    @Step("Check price is correct")
+    @Step("Проверка, что итоговая цена посчитана корректно")
     public void checkCorrectionPrice() {
         priceList = driver.findElements(By.cssSelector("[class *= '_1Q9ASvPbPN']"));
         int sale = salePrice();
         int index = sale == 0 ? 2 : 3;
-        Assert.assertEquals(regularPrice() + deliveryPrice() - sale,
-                summaryPrice(index));
+        Assert.assertEquals(regularPrice() + deliveryPrice() - sale, summaryPrice(index));
     }
 
-    @Step("Check free delivery")
+    @Step("Проверяем, что доставка стала бесплатной")
     public void checkDeliveryIsFree() {
         String priceStr = priceList.get(1).findElement(By.cssSelector("[data-auto*='value']"))
                 .getAttribute("textContent").replace(" ", "");
         Assert.assertTrue(priceStr.contains("бесплатно"));
     }
 
-    @Step("Add product")
+    @Step("Добавляем ещё один экземпляр продукта")
     public void addCountProduct(int priceLimit) {
         String priceStr = driver.findElement(By.xpath("//div[@data-auto='CartOfferPrice']/span/span/span"))
                 .getAttribute("textContent");
@@ -83,7 +82,7 @@ public class ShoppingCartPage extends TestsPreparation {
         }
     }
 
-    @Step("Check free delivery title")
+    @Step("Проверяем, что появилось сообщение о бесплатной доставке")
     public void checkDeliveryIsFreeTitle(String title) {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.attributeContains(
@@ -91,8 +90,7 @@ public class ShoppingCartPage extends TestsPreparation {
         checkDeliveryText(title);
     }
 
-    @Step("Check delivery text")
-    public void checkDeliveryText(String textDelivery) {
+    private void checkDeliveryText(String textDelivery) {
         WebElement freeCome = driver.findElement(By.cssSelector("[class *= '_3EX9adn_xp']"));
         Assert.assertTrue(freeCome.getAttribute("textContent").contains(textDelivery));
     }
