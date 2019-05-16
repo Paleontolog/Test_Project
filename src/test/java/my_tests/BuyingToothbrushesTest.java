@@ -4,9 +4,9 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(TestListener.class)
-public class Test3 extends TestsPreparation {
+public class BuyingToothbrushesTest extends TestsPreparation {
     @Test
-    public void test_3() {
+    public void buyingToothbrushes() {
         FirstPage page = new FirstPage();
         page.findItem("Электрические зубные щетки");
         ProductListPage prodPage = new ProductListPage();

@@ -5,7 +5,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(TestListener.class)
-public class Test2 extends TestsPreparation {
+public class ChooseCityTest extends TestsPreparation {
 
     @DataProvider(name="SearchProvider")
     public Object[][] getDataFromDataprovider(){
@@ -18,7 +18,7 @@ public class Test2 extends TestsPreparation {
     }
 
     @Test(dataProvider="SearchProvider")
-    public void test_2(String cityName) {
+    public void chooseCityTest(String cityName) {
         FirstPage page = new FirstPage();
         page.clickCityInner();
         page.changeCityName(cityName);

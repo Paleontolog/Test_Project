@@ -2,17 +2,17 @@
 <suite name="TestSuite">
     <test name="Login">
         <classes>
-           <class name="my_tests.Test1" />
+           <class name="my_tests.LoginTest" />
         </classes>
     </test>
-    <test name="ChangeCityTest">
+    <test name="ChangeCity">
            <classes>
-              <class name="my_tests.Test2" />
+              <class name="my_tests.ChooseCityTest" />
            </classes>
     </test>
-    <test name="Choose">
+    <test name="BuyingToothbrushes">
         <classes>
-            <class name="my_tests.Test3" />
+            <class name="my_tests.BuyingToothbrushesTest" />
         </classes>
     </test>
 </suite>

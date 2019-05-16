@@ -3,10 +3,10 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(TestListener.class)
-public class Test1 extends TestsPreparation {
+public class LoginTest extends TestsPreparation {
 
     @Test
-    public void test_1() {
+    public void loginTest() {
         FirstPage topPanel = new FirstPage();
         LoginForm loginForm = topPanel.clickButtonAccount();
         String email = "Naglui.eretick@yandex.ru";
