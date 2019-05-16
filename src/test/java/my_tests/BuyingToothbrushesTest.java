@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 @Listeners(TestListener.class)
 public class BuyingToothbrushesTest extends TestsPreparation {
     @Test
-    public void buyingToothbrushes() {
+    public void buyingToothbrushesTest() {
         FirstPage page = new FirstPage();
         page.findItem("Электрические зубные щетки");
         ProductListPage prodPage = new ProductListPage();
